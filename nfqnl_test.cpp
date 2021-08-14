@@ -17,12 +17,12 @@ static bool pass_and_block = true;
 static std::vector<char*> block_list;
 
 void dump(unsigned char* buf, int size) {
-	int i;
 	IpHdr *iphdr = (IpHdr*)buf;
 	TcpHdr *tcphdr = (TcpHdr*)(buf+iphdr->ihl()*4);
-	unsigned char* payload = (buf+iphdr->ihl()*4+tcphdr->data_offset()*4);
+	int header_length = iphdr->ihl()*4+tcphdr->data_offset()*4;
+	unsigned char* payload = (buf+header_length);
 	
-	if (size - (iphdr->ihl()*4 + tcphdr->data_offset()*4) > 0){
+	if (size - header_length> 0){
 		for (int i = 0; i < block_list.size(); i++){
 			char * result = strstr((char*)payload, block_list[i]);
 			if (result != NULL){
