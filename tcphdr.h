@@ -14,8 +14,8 @@ struct TcpHdr final{
 	uint16_t checksum_;
 	uint16_t urgent_pointer_;
 	
-	uint16_t source_port() { return source_port_; }
-	uint16_t dest_port() { return dest_port_; }
+	uint16_t source_port() { return htons(source_port_); }
+	uint16_t dest_port() { return htons(dest_port_); }
 	uint32_t sequence() { return sequence_; }
 	uint32_t acknowledge() { return acknowledge_; }
 	uint16_t reserved_part() { return reserved_part_; }
